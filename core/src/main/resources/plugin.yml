@@ -1,0 +1,11 @@
+name: Core
+version: '${version}'
+main: com.tricrotism.core.Core
+api-version: '1.20'
+commands:
+  dev/actionbar:
+    description: "Send an action bar message to a player"
+  dev/bossbar:
+    description: "Send a boss bar message to a player"
+  givetreecapitator:
+    description: "Gives a player the TreeCapitator item"

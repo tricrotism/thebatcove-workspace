@@ -2,6 +2,8 @@ package com.tricrotism.core;
 
 import com.tricrotism.core.commands.ActionBarCommand;
 import com.tricrotism.core.commands.BossBarCommand;
+import com.tricrotism.core.customitems.axe.thorsaxe.GiveThorsAxeCommand;
+import com.tricrotism.core.customitems.axe.thorsaxe.ThorsAxeHandler;
 import com.tricrotism.core.customitems.axe.treecapitator.GiveTreecapitatorCommand;
 import com.tricrotism.core.customitems.axe.treecapitator.TreeCapitatorHandler;
 import org.bukkit.plugin.Plugin;
@@ -16,6 +18,10 @@ public final class Core extends JavaPlugin {
         this.getCommand("givetreecapitator").setExecutor(new GiveTreecapitatorCommand());
 
         this.getServer().getPluginManager().registerEvents(new TreeCapitatorHandler(), this);
+
+        this.getCommand("givethorsaxe").setExecutor(new GiveThorsAxeCommand());
+
+        this.getServer().getPluginManager().registerEvents(new ThorsAxeHandler(), this);
     }
 
     @Override

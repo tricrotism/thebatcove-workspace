@@ -18,6 +18,10 @@ public class TreeCapitatorItem {
 
     public static NamespacedKey NAMESPACE_KEY = new NamespacedKey("thebatcove-core", "tree_capitator");
 
+    /**
+     * Creates the Tree Capitator item and gives it to the player.
+     * @param player the player to give the item to.
+     */
     public static void createItem(Player player) {
         List<String> lore = new ArrayList<>();
         lore.add("§7§oThis axe can chop down entire trees");

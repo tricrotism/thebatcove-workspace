@@ -4,14 +4,16 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class PlayerUtils {
 
     /**
      * This method is used to send an action bar to a player.
+     *
      * @param player The player to send the action bar to.
-     * @param msg The message of the action bar.
+     * @param msg    The message of the action bar.
      * @since 0.0.0
      */
 
@@ -21,8 +23,9 @@ public class PlayerUtils {
 
     /**
      * This method is used to send a title to a player.
-     * @param player The player to send the title to.
-     * @param title The title of the title.
+     *
+     * @param player   The player to send the title to.
+     * @param title    The title of the title.
      * @param subtitle The subtitle of the title.
      * @since 0.0.0
      */
@@ -35,8 +38,9 @@ public class PlayerUtils {
 
     /**
      * This method is used to send a boss bar to a player.
+     *
      * @param player The player to send the boss bar to.
-     * @param msg The message of the boss bar.
+     * @param msg    The message of the boss bar.
      * @since 0.0.0
      */
     public static void bossBar(Player player, String msg) {
@@ -45,6 +49,7 @@ public class PlayerUtils {
 
     /**
      * This method is used to parse a message using MiniMessage.
+     *
      * @param msg The message to parse.
      * @return The parsed message.
      * @since 0.0.0
@@ -54,6 +59,44 @@ public class PlayerUtils {
         MiniMessage mm = MiniMessage.miniMessage();
 
         return mm.deserialize(msg);
+    }
+
+    /**
+     * This method is used to find a player by their name.
+     *
+     * @param targetString The name of the player to find.
+     * @return The player that was found.
+     * @since 0.0.0
+     */
+    public static Player findPlayer(String targetString) {
+        Player target = null;
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.getName().equalsIgnoreCase(targetString)) {
+                target = player;
+                break;
+            }
+        }
+
+        if (target == null) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.getName().toLowerCase().startsWith(targetString.toLowerCase())) {
+                    target = player;
+                    break;
+                }
+            }
+        }
+
+        if (target == null) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.getName().toLowerCase().contains(targetString.toLowerCase())) {
+                    target = player;
+                    break;
+                }
+            }
+        }
+
+        return target;
     }
 
 }

@@ -12,10 +12,19 @@ import java.util.List;
 
 public class GiveThorsAxeCommand implements TabExecutor {
 
+    /**
+     * This method is used to give a player a Thor's Axe.
+     *
+     * @param commandSender
+     * @param command
+     * @param s
+     * @param args
+     * @return
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if(command.getName().equalsIgnoreCase("givethorsaxe")) {
-            if(args.length == 0) {
+        if (command.getName().equalsIgnoreCase("givethorsaxe")) {
+            if (args.length == 0) {
                 commandSender.sendMessage("You need to specify a player!");
                 return false;
             }
@@ -23,7 +32,7 @@ public class GiveThorsAxeCommand implements TabExecutor {
             String playerName = args[0];
             Player player = Bukkit.getPlayer(playerName);
 
-            if(player == null) {
+            if (player == null) {
                 commandSender.sendMessage("Player not found!");
                 return false;
             }

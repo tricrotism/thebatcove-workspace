@@ -48,15 +48,20 @@ public class ItemUtils {
         setCustomTag(item, UNIQUE_ID, ItemTagType.STRING, UUID.randomUUID().toString());
     }
 
-    public static <Z, T> void setCustomTag(ItemStack item, NamespacedKey key, ItemTagType<Z, T> type, T object) {
+    public static <Z, T> void setCustomTag(ItemStack item, NamespacedKey key, ItemTagType type, T object) {
         ItemMeta meta = item.getItemMeta();
         container(meta).setCustomTag(key, type, object);
         item.setItemMeta(meta);
     }
 
-    public static <Z, T> T getCustomTag(ItemStack item, NamespacedKey key, ItemTagType<Z, T> type) {
-        ItemMeta meta = item.getItemMeta();
-        return container(meta).getCustomTag(key, type);
+    public static Object getCustomTag(ItemStack item, NamespacedKey key, ItemTagType type) {
+        if (item != null && item.hasItemMeta()) {
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && meta.getCustomTagContainer().hasCustomTag(key, type)) {
+                return meta.getCustomTagContainer().getCustomTag(key, type);
+            }
+        }
+        return null;
     }
 
     static CustomItemTagContainer container(ItemMeta meta) {

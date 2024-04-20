@@ -21,7 +21,7 @@ public class BossBarCommand  implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(command.getName().equalsIgnoreCase("dev/bossbar")) {
             if(args.length == 0) {
-                commandSender.sendMessage("You need to specify a player/all");;
+                commandSender.sendMessage("You need to specify a player/all");
                 return false;
             }
 

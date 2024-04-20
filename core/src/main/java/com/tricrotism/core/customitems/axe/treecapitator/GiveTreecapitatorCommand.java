@@ -1,5 +1,6 @@
 package com.tricrotism.core.customitems.axe.treecapitator;
 
+import com.tricrotism.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,7 +21,7 @@ public class GiveTreecapitatorCommand  implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if(command.getName().equalsIgnoreCase("givetreecapitator")) {
             if(args.length == 0) {
-                commandSender.sendMessage("You need to specify a player!");
+                Core.sendMessage(commandSender.getName(), "generic.specifyAPlayer");
                 return false;
             }
 
@@ -28,13 +29,13 @@ public class GiveTreecapitatorCommand  implements TabExecutor {
             Player player = Bukkit.getPlayer(playerName);
 
             if(player == null) {
-                commandSender.sendMessage("Player not found!");
+                Core.sendMessage(commandSender.getName(), "generic.playerNotFound");
                 return false;
             }
 
 
             TreeCapitatorItem.createItem(player);
-            player.sendMessage("You have been given a Tree Capitator!");
+            Core.sendMessage(playerName, "core.customItems.treeCapitator.givenAxe");
 
             return true;
         }

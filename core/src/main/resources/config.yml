@@ -1,0 +1,17 @@
+generic:
+  playerNotFound: "§x§1§A§1§A§1§A§lTBC §f§l> §7Player not found."
+  specifyAPlayer: "§x§1§A§1§A§1§A§lTBC §f§l> §7Please specify a player."
+  mustBeAPlayer: "§x§1§A§1§A§1§A§lTBC §f§l> §7You must be a player to use this command."
+core:
+  commands:
+    teleport:
+      teleport1: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported you to §e{player}§7."
+      teleport2: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported you to §e{x}x {y}y {z}z§7."
+      teleport3: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported you to §e{x}x {y}y {z}z§7 in the world §e{world}§7."
+      teleport4: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported {target} to §e{x}x {y}y {z}z§7 in the world §e{world}§7."
+  customItems:
+    treeCapitator:
+      givenAxe: "§x§1§A§1§A§1§A§lTBC §f§l> §7You have been given the Treecapitator."
+    thorsAxe:
+      givenAxe: "§x§1§A§1§A§1§A§lTBC §f§l> §7You have been given Thor's Axe."
+      cooldown: "§x§1§A§1§A§1§A§lTBC §f§l> §7You must wait {time} before using Thor's Axe again."

@@ -1,5 +1,6 @@
 package com.tricrotism.core.customitems.axe.thorsaxe;
 
+import com.tricrotism.core.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,7 +26,7 @@ public class GiveThorsAxeCommand implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("givethorsaxe")) {
             if (args.length == 0) {
-                commandSender.sendMessage("You need to specify a player!");
+                Core.sendMessage(commandSender.getName(), "generic.specifyAPlayer");
                 return false;
             }
 
@@ -33,13 +34,13 @@ public class GiveThorsAxeCommand implements TabExecutor {
             Player player = Bukkit.getPlayer(playerName);
 
             if (player == null) {
-                commandSender.sendMessage("Player not found!");
+                Core.sendMessage(commandSender.getName(), "generic.playerNotFound");
                 return false;
             }
 
 
             ThorsAxeItem.createItem(player);
-            player.sendMessage("You have been given a Thor's Axe!");
+            Core.sendMessage(playerName, "core.customItems.thorsAxe.givenAxe");
 
             return true;
         }

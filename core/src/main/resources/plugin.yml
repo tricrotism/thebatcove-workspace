@@ -11,3 +11,6 @@ commands:
     description: "Gives a player the TreeCapitator item"
   givethorsaxe:
     description: "Gives a player the Thor's Axe item"
+  teleport:
+    description: "Teleport to a player or location"
+    aliases: [tp, tpo]

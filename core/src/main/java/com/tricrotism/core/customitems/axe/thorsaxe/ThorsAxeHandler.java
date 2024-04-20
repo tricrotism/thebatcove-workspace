@@ -1,5 +1,6 @@
 package com.tricrotism.core.customitems.axe.thorsaxe;
 
+import com.tricrotism.core.Core;
 import com.tricrotism.core.utils.ItemUtils;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LightningStrike;
@@ -10,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.meta.tags.ItemTagType;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ThorsAxeHandler implements Listener {
 
@@ -30,7 +32,8 @@ public class ThorsAxeHandler implements Listener {
      */
     @EventHandler
     public void onThorsAxeRightClick(PlayerInteractEvent event) {
-        if (ItemUtils.getCustomTag(event.getPlayer().getInventory().getItemInMainHand(), ThorsAxeItem.NAMESPACE_KEY, ItemTagType.STRING).equals("true")) {
+        Object customTag = ItemUtils.getCustomTag(event.getPlayer().getInventory().getItemInMainHand(), ThorsAxeItem.NAMESPACE_KEY, ItemTagType.STRING);
+        if (customTag != null && customTag.equals("true")) {
             if (event.getAction().isRightClick()) {
                 if (event.getClickedBlock() != null && event.getClickedBlock().getType().toString().contains("LOG")) {
                     event.setCancelled(true);
@@ -53,7 +56,10 @@ public class ThorsAxeHandler implements Listener {
         if (!checkCooldown(player)) {
             player.getWorld().strikeLightning(player.getTargetBlock(600).getLocation());
         } else {
-            player.sendMessage("§cYou must wait " + getCooldownDuration(player) + " seconds before using this again.");
+            Core.sendMessage(player.getName(), "core.customItems.thorsAxe.cooldown", Map.of(
+                    "time", getCooldownDuration(player)
+            ));
+//            player.sendMessage("§cYou must wait " + getCooldownDuration(player) + " seconds before using this again.");
         }
     }
 

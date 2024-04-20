@@ -6,10 +6,12 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.tags.ItemTagType;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class TreeCapitatorHandler implements Listener {
 
@@ -18,10 +20,11 @@ public class TreeCapitatorHandler implements Listener {
      *
      * @param event
      */
-    @EventHandler
+   @EventHandler
     public void handleTreeCapitatior(BlockBreakEvent event) {
-        if (ItemUtils.getCustomTag(event.getPlayer().getInventory().getItemInMainHand(), TreeCapitatorItem.NAMESPACE_KEY, ItemTagType.STRING).equals("true")) {
-            handleTreeBreak(event.getBlock().getLocation());
+        Object customTag = ItemUtils.getCustomTag(event.getPlayer().getInventory().getItemInMainHand(), TreeCapitatorItem.NAMESPACE_KEY, ItemTagType.STRING);
+        if (customTag != null && customTag.equals("true")) {
+            handleTreeBreak(event.getBlock().getLocation(), event.getPlayer().getInventory().getItemInMainHand());
         }
     }
 
@@ -30,7 +33,7 @@ public class TreeCapitatorHandler implements Listener {
      *
      * @param startLocation the location of the block that was broken.
      */
-    private void handleTreeBreak(Location startLocation) {
+    private void handleTreeBreak(Location startLocation, ItemStack item) {
         Set<Block> visited = new HashSet<>();
         Set<Block> queue = new HashSet<>();
 
@@ -50,6 +53,14 @@ public class TreeCapitatorHandler implements Listener {
                                 queue.add(adjacentBlock);
                                 visited.add(adjacentBlock);
                                 adjacentBlock.breakNaturally();
+
+                                int durability = item.getDurability();
+                                if (durability < item.getType().getMaxDurability()) {
+                                    item.setDurability((short) (durability + 1));
+                                } else {
+                                    item.setAmount(0);
+                                    return;
+                                }
                             }
                         }
                     }

@@ -13,4 +13,11 @@ commands:
     description: "Gives a player the Thor's Axe item"
   teleport:
     description: "Teleport to a player or location"
-    aliases: [tp, tpo]
+    aliases: [ tp, tpo ]
+  tpa:
+    description: "Request to teleport to a player"
+    aliases: [ tpask, tpaccept, tpdeny ]
+  tpaccept:
+    description: "Accept a teleport request"
+  tpdeny:
+    description: "Deny a teleport request"

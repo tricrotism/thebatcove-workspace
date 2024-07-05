@@ -1,9 +1,7 @@
 package com.tricrotism.core.customitems.axe.thorsaxe;
 
-import com.tricrotism.core.Core;
 import com.tricrotism.core.utils.ItemUtils;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LightningStrike;
+import com.tricrotism.core.utils.LocaleUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -56,10 +54,9 @@ public class ThorsAxeHandler implements Listener {
         if (!checkCooldown(player)) {
             player.getWorld().strikeLightning(player.getTargetBlock(600).getLocation());
         } else {
-            Core.sendMessage(player.getName(), "core.customItems.thorsAxe.cooldown", Map.of(
+            LocaleUtils.sendMessage(player.getName(), "core.customItems.thorsAxe.cooldown", Map.of(
                     "time", getCooldownDuration(player)
             ));
-//            player.sendMessage("§cYou must wait " + getCooldownDuration(player) + " seconds before using this again.");
         }
     }
 

@@ -4,11 +4,28 @@ generic:
   mustBeAPlayer: "§x§1§A§1§A§1§A§lTBC §f§l> §7You must be a player to use this command."
 core:
   commands:
+    actionbar:
+      usage: "§x§1§A§1§A§1§A§lTBC §f§l> §7Please specify a message."
+      sent: "§x§1§A§1§A§1§A§lTBC §f§l> §7Sent actionbar message."
     teleport:
+      invalidWorld: "§x§1§A§1§A§1§A§lTBC §f§l> §7Invalid world."
       teleport1: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported you to §e{player}§7."
       teleport2: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported you to §e{x}x {y}y {z}z§7."
       teleport3: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported you to §e{x}x {y}y {z}z§7 in the world §e{world}§7."
       teleport4: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported {target} to §e{x}x {y}y {z}z§7 in the world §e{world}§7."
+    tpa:
+      cannotTeleportToSelf: "§x§1§A§1§A§1§A§lTBC §f§l> §7You cannot teleport to yourself."
+      alreadyHaveAPendingRequest: "§x§1§A§1§A§1§A§lTBC §f§l> §7You already have a pending request."
+      requestExpired: "§x§1§A§1§A§1§A§lTBC §f§l> §7The request has expired."
+      requestSent: "§x§1§A§1§A§1§A§lTBC §f§l> §7Request sent to §e{player}§7."
+      requestReceived: "§x§1§A§1§A§1§A§lTBC §f§l> §e{player} §7has requested to teleport to you."
+      noPendingRequests: "§x§1§A§1§A§1§A§lTBC §f§l> §7You have no pending requests."
+      noLongerOnline: "§x§1§A§1§A§1§A§lTBC §f§l> §7{player} is no longer online."
+      denied: "§x§1§A§1§A§1§A§lTBC §f§l> §7You have denied the request."
+      tpAccepted: "§x§1§A§1§A§1§A§lTBC §f§l> §7You have accepted the request."
+      accept:
+        selfToOther: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported to §e{player}§7."
+        otherToSelf: "§x§1§A§1§A§1§A§lTBC §f§l> §7Teleported §e{player} §7to you."
   customItems:
     treeCapitator:
       givenAxe: "§x§1§A§1§A§1§A§lTBC §f§l> §7You have been given the Treecapitator."

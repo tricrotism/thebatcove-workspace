@@ -3,6 +3,9 @@ package com.tricrotism.core;
 import com.tricrotism.core.commands.ActionBarCommand;
 import com.tricrotism.core.commands.BossBarCommand;
 import com.tricrotism.core.commands.teleporting.TeleportCommand;
+import com.tricrotism.core.commands.teleporting.TpaAcceptCommand;
+import com.tricrotism.core.commands.teleporting.TpaCommand;
+import com.tricrotism.core.commands.teleporting.TpaDenyCommand;
 import com.tricrotism.core.customitems.axe.thorsaxe.GiveThorsAxeCommand;
 import com.tricrotism.core.customitems.axe.thorsaxe.ThorsAxeHandler;
 import com.tricrotism.core.customitems.axe.treecapitator.GiveTreecapitatorCommand;
@@ -16,24 +19,16 @@ import java.util.Map;
 
 public final class Core extends JavaPlugin {
 
-    private static FileConfiguration messagesConfig;
+    public static FileConfiguration messagesConfig;
+    public static Core plugin;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         messagesConfig = getConfig();
+        plugin = this;
 
-        this.getCommand("dev/actionbar").setExecutor(new ActionBarCommand());
-        this.getCommand("dev/bossbar").setExecutor(new BossBarCommand());
-        this.getCommand("teleport").setExecutor(new TeleportCommand());
-        this.getCommand("givetreecapitator").setExecutor(new GiveTreecapitatorCommand());
-        this.getServer().getPluginManager().registerEvents(new TreeCapitatorHandler(), this);
-        this.getCommand("givethorsaxe").setExecutor(new GiveThorsAxeCommand());
-        this.getServer().getPluginManager().registerEvents(new ThorsAxeHandler(), this);
-
-        for (String key : messagesConfig.getKeys(true)) {
-            getLogger().info(key);
-        }
+        initCommandAndEvents();
     }
 
     @Override
@@ -42,40 +37,50 @@ public final class Core extends JavaPlugin {
     }
 
     /**
-     * Get a message from the messages.yml file.
-     * @param key
-     * @return
+     * Command/Event Initializer
+     *
+     * @since 0.0.1
      */
-    public static String getMessage(String key) {
-        return messagesConfig.getString(key, "Message not found for key: " + key);
+    private void initCommandAndEvents() {
+        registerCommand("dev/actionbar", ActionBarCommand.class);
+        registerCommand("dev/bossbar", BossBarCommand.class);
+        registerCommand("teleport", TeleportCommand.class);
+        registerCommand("givetreecapitator", GiveTreecapitatorCommand.class);
+        registerEvent(TreeCapitatorHandler.class);
+        registerCommand("givethorsaxe", GiveThorsAxeCommand.class);
+        registerEvent(ThorsAxeHandler.class);
+        registerCommand("tpa", TpaCommand.class);
+        registerCommand("tpaccept", TpaAcceptCommand.class);
+        registerCommand("tpdeny", TpaDenyCommand.class);
     }
 
+
     /**
-     * Send a message to a player.
-     * @param playerName
-     * @param messageKey
+     * This method is used to have a simpler way to register a command
+     *
+     * @param commandName The name of the command
+     * @param clazz       The class that will handle the command
+     * @since 0.0.1
      */
-    public static void sendMessage(String playerName, String messageKey) {
-        Player player = Bukkit.getPlayer(playerName);
-        if (player != null && player.isOnline()) {
-            player.sendMessage(getMessage(messageKey));
+    public void registerCommand(String commandName, Class<?> clazz) {
+        try {
+            Bukkit.getPluginCommand(commandName).setExecutor((org.bukkit.command.TabExecutor) clazz.newInstance());
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Send a message to a player with placeholders.
-     * @param playerName
-     * @param messageKey
-     * @param placeholders
+     * This method is used to have a simpler way to register an event
+     *
+     * @param clazz The class that will handle the event
+     * @since 0.0.1
      */
-    public static void sendMessage(String playerName, String messageKey, Map<String, Object> placeholders) {
-        Player player = Bukkit.getPlayer(playerName);
-        if (player != null && player.isOnline()) {
-            String message = getMessage(messageKey);
-            for (Map.Entry<String, Object> entry : placeholders.entrySet()) {
-                message = message.replace("{" + entry.getKey() + "}", entry.getValue().toString());
-            }
-            player.sendMessage(message);
+    public void registerEvent(Class<?> clazz) {
+        try {
+            Bukkit.getPluginManager().registerEvents((org.bukkit.event.Listener) clazz.newInstance(), this);
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 }
